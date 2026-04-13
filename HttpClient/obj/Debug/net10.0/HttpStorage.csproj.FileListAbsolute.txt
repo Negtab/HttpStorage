@@ -1,0 +1,7 @@
+/Users/artemmihlin/Documents/Labs/Rider/HttpStorage/obj/Debug/net10.0/HttpStorage.csproj.AssemblyReference.cache
+/Users/artemmihlin/Documents/Labs/Rider/HttpStorage/obj/Debug/net10.0/Avalonia/Resources.Inputs.cache
+/Users/artemmihlin/Documents/Labs/Rider/HttpStorage/obj/Debug/net10.0/Avalonia/resources
+/Users/artemmihlin/Documents/Labs/Rider/HttpStorage/obj/Debug/net10.0/HttpStorage.GeneratedMSBuildEditorConfig.editorconfig
+/Users/artemmihlin/Documents/Labs/Rider/HttpStorage/obj/Debug/net10.0/HttpStorage.AssemblyInfoInputs.cache
+/Users/artemmihlin/Documents/Labs/Rider/HttpStorage/obj/Debug/net10.0/HttpStorage.AssemblyInfo.cs
+/Users/artemmihlin/Documents/Labs/Rider/HttpStorage/obj/Debug/net10.0/HttpStorage.csproj.CoreCompileInputs.cache

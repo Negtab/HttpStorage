@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    container_name: db_container
+    environment:
+      POSTGRES_USER: artem
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: mydb
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U artem -d mydb"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - app_network
+
+  app:
+    build: .
+    container_name: server_container
+    ports:
+      - "5096:5096"
+    environment:
+      # Переопределяем строку подключения через переменную окружения
+      - ConnectionStrings__DefaultConnection=Host=db;Database=mydb;Username=artem;Password=1234
+      # JWT настройки тоже лучше передавать через окружение
+      - JwtSettings__SecretKey=hjksaygouqgkjhsbjlypojyafnmzylqs
+      - JwtSettings__Issuer=MyFileServer
+      - JwtSettings__Audience=MyFileServerClients
+      - JwtSettings__ExpiryMinutes=60
+    volumes:
+      # Монтируем том для хранения загружаемых файлов (чтобы они не пропадали)
+      - file_storage:/app/storage
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - app_network
+
+volumes:
+  postgres_data:
+  file_storage:
+
+networks:
+  app_network:

@@ -1,0 +1,54 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:models1="clr-namespace:HttpClient.Models"
+        xmlns:viewModels1="clr-namespace:HttpClient.ViewModels"
+        x:Class="HttpClient.Views.MainWindow"
+        x:DataType="viewModels1:MainWindowViewModel"
+        Title="HTTP File Storage Client"
+        Width="800" Height="450">
+
+        <DockPanel LastChildFill="True">
+        <StackPanel DockPanel.Dock="Top" Margin="10" Spacing="5">
+            <TextBlock Text="Сервер" FontWeight="Bold"/>
+            <Grid ColumnDefinitions="Auto,*,Auto,*,Auto,*,Auto,Auto">
+                <TextBlock Text="URL:" VerticalAlignment="Center"/>
+                <TextBox Grid.Column="1" Margin="5,0" Text="{Binding ServerUrl}" Watermark="http://localhost:5096"/>
+                <TextBlock Grid.Column="2" Text="Логин:" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                <TextBox Grid.Column="3" Margin="5,0" Text="{Binding Login}" Watermark="login"/>
+                <TextBlock Grid.Column="4" Text="Пароль:" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                <TextBox Grid.Column="5" Margin="5,0" Text="{Binding Password}" Watermark="••••" PasswordChar="*"/>                
+                <Button Grid.Column="6" Content="Войти" Command="{Binding LoginCommand}" Margin="10,0,5,0"/>
+                <Button Grid.Column="7" Content="Зарегистрироваться" Command="{Binding RegisterCommand}" Margin="0,0,0,0"/>
+            </Grid>
+            <TextBlock Text="{Binding Status}" Foreground="Gray"/>
+        </StackPanel>
+
+        <Grid DockPanel.Dock="Bottom" Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Text="Файлы на сервере" FontWeight="Bold"/>
+
+            <ListBox Grid.Row="1" Margin="0,5" ItemsSource="{Binding Files}"
+                     SelectedItem="{Binding SelectedFile}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate x:DataType="models1:FileItem">
+                        <TextBlock Text="{Binding Name}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+            <StackPanel Grid.Row="2" Orientation="Horizontal" Spacing="10">
+                <Button Content="Загрузить файл" Command="{Binding UploadFileCommand}"/>
+                <Button Content="Скачать и открыть" Command="{Binding DownloadAndOpenCommand}"/>
+                <Button Content="Удалить" Command="{Binding DeleteFileCommand}"/>
+                <Button Content="Копировать" Command="{Binding CopyFileCommand}"/>
+                <Button Content="Переместить" Command="{Binding MoveFileCommand}"/>
+                <Button Content="Обновить список" Command="{Binding RefreshCommand}"/>
+            </StackPanel>
+        </Grid>
+    </DockPanel>
+</Window>
